@@ -5,6 +5,7 @@
         "api/*.php": { "runtime": "vercel-php@0.7.4" }
     },
     "routes": [
+        { "src": "/(.*\\.[^/]+)$", "dest": "/public/$1" },
         { "src": "/build/(.*)", "dest": "/public/build/$1" },
         { "src": "/storage/(.*)", "dest": "/public/storage/$1" },
         { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
@@ -12,10 +13,11 @@
         { "src": "/(.*)", "dest": "/api/index.php" }
     ],
     "env": {
+        "APP_NAME": "Linky",
         "APP_ENV": "production",
         "APP_KEY": "base64:TU8R+QsrYYKWva9RBM/dNQ3dSaK/d3zQbkUn4SXYCok=",
-        "APP_DEBUG": "true",
-        "APP_URL": "https://laravel-to-vercel.vercel.app",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://free-ecommerce.vercel.app",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
