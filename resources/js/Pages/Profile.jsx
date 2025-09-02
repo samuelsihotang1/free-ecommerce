@@ -1,31 +1,28 @@
-import { Head } from "@inertiajs/react";
 import { useEffect, useRef } from "react";
 import App from "../Layouts/App";
 import ProductList from "../Components/ProductList";
+import { loadScript } from "@/Utils/loadScript";
+import { Head } from "@inertiajs/react";
 
-export default function Home() {
+export default function Profile() {
     const loadedRef = useRef(false);
 
     useEffect(() => {
         if (loadedRef.current) return;
         loadedRef.current = true;
 
-        const loadScript = (src) =>
-            new Promise((resolve, reject) => {
-                const s = document.createElement("script");
-                s.src = src;
-                s.async = false;
-                s.onload = () => resolve();
-                s.onerror = () => reject(new Error(`Failed to load ${src}`));
-                document.body.appendChild(s);
-            });
-
         (async () => {
-            await loadScript("/assets/libs/@popperjs/core/umd/popper.min.js");
-            await loadScript("/assets/libs/simplebar/simplebar.min.js");
-            await loadScript("/assets/libs/feather-icons/feather.min.js");
-            await loadScript("/assets/js/pages/components.js");
-            await loadScript("/assets/js/app.js");
+            try {
+                await loadScript(
+                    "/assets/libs/@popperjs/core/umd/popper.min.js"
+                );
+                await loadScript("/assets/libs/simplebar/simplebar.min.js");
+                await loadScript("/assets/libs/feather-icons/feather.min.js");
+                await loadScript("/assets/js/pages/components.js");
+                await loadScript("/assets/js/app.js");
+            } catch (err) {
+                console.error(err);
+            }
         })();
     }, []);
 
@@ -35,7 +32,6 @@ export default function Home() {
                 <Head title="Profile" />
                 <div className="ltr:flex flex-1 rtl:flex-row-reverse">
                     <div className="container page-wrapper relative ltr:ml-auto rtl:mr-auto rtl:ml-0 px-4 pt-[54px] duration-300">
-
                         <div className="pt-4 xl:w-full  min-h-[calc(100vh-138px)] relative ">
                             <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
                                 <div className="sm:col-span-12  md:col-span-12 lg:col-span-12 xl:col-span-12 ">
@@ -67,7 +63,8 @@ export default function Home() {
                                                                 Nama Pengguna
                                                             </h5>
                                                             <p className="block text-xs lg:text-base  font-medium text-slate-500">
-                                                                Deskripsi singkat pengguna
+                                                                Deskripsi
+                                                                singkat pengguna
                                                             </p>
                                                         </div>
                                                     </div>
@@ -208,7 +205,7 @@ export default function Home() {
                                                     role="tabpanel"
                                                     aria-labelledby="Kategori-1-tab"
                                                 >
-                                                    <ProductList/>
+                                                    <ProductList />
                                                 </div>
                                                 {/*end tab-pan*/}
                                                 <div
@@ -217,17 +214,17 @@ export default function Home() {
                                                     role="tabpanel"
                                                     aria-labelledby="Kategori-2-tab"
                                                 >
-                                                    <ProductList/>
+                                                    <ProductList />
                                                     {/*end grid*/}
                                                 </div>
                                                 {/*end tab-pan*/}
                                                 <div
-                                                    className="hidden"
+                                                    className=""
                                                     id="Kategori-3"
                                                     role="tabpanel"
                                                     aria-labelledby="Kategori-3-tab"
                                                 >
-                                                    <ProductList/>
+                                                    <ProductList />
                                                 </div>
                                                 {/*end tab-pan*/}
                                                 <div
@@ -236,7 +233,7 @@ export default function Home() {
                                                     role="tabpanel"
                                                     aria-labelledby="Kategori-4-tab"
                                                 >
-                                                    <ProductList/>
+                                                    <ProductList />
                                                     {/*end grid*/}
                                                 </div>
                                             </div>

@@ -1,473 +1,246 @@
-try {
-    let t = {
-        defaultTabId: null,
-        activeClasses:
-            "text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500",
-        inactiveClasses:
-            "text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300",
-        onShow() {},
-    };
-    class e {
-        constructor(e = [], s = {}) {
-            (this._items = e),
-                (this._activeTab = s ? this.getTab(s.defaultTabId) : null),
-                (this._options = { ...t, ...s }),
-                this._init();
-        }
-        _init() {
-            this._items.length &&
-                (this._activeTab || this._setActiveTab(this._items[0]),
-                this.show(this._activeTab.id, !0),
-                this._items.map((t) => {
-                    t.triggerEl.addEventListener("click", () => {
-                        this.show(t.id);
-                    });
-                }));
-        }
-        getActiveTab() {
-            return this._activeTab;
-        }
-        _setActiveTab(t) {
-            this._activeTab = t;
-        }
-        getTab(t) {
-            return this._items.filter((e) => e.id === t)[0];
-        }
-        show(t, e = !1) {
-            let s = this.getTab(t);
-            (s !== this._activeTab || e) &&
-                (this._items.map((t) => {
-                    t !== s &&
-                        (t.triggerEl.classList.remove(
-                            ...this._options.activeClasses.split(" ")
-                        ),
-                        t.triggerEl.classList.add(
-                            ...this._options.inactiveClasses.split(" ")
-                        ),
-                        t.targetEl.classList.add("hidden"),
-                        t.triggerEl.setAttribute("aria-selected", !1));
-                }),
-                s.triggerEl.classList.add(
-                    ...this._options.activeClasses.split(" ")
-                ),
-                s.triggerEl.classList.remove(
-                    ...this._options.inactiveClasses.split(" ")
-                ),
-                s.triggerEl.setAttribute("aria-selected", !0),
-                s.targetEl.classList.remove("hidden"),
-                this._setActiveTab(s),
-                this._options.onShow());
+(function () {
+    if (window.componentsGlobalInitialized) return;
+    window.componentsGlobalInitialized = true;
+
+    function qs(root, sel) {
+        return (root || document).querySelector(sel);
+    }
+    function qsa(root, sel) {
+        return Array.from((root || document).querySelectorAll(sel));
+    }
+    function toggleHidden(el, force) {
+        if (!el) return;
+        if (typeof force === "boolean") {
+            el.classList.toggle("hidden", force);
+            el.classList.toggle("block", !force);
+        } else {
+            const willHide =
+                !el.classList.contains("hidden") &&
+                el.classList.contains("block");
+            el.classList.toggle("hidden", !willHide);
+            el.classList.toggle("block", willHide);
         }
     }
-    (window.Tabs = e),
-        (() => {
-            document.querySelectorAll("[data-tabs-toggle]").forEach((t) => {
-                let s = [],
-                    i = null;
-                t.querySelectorAll('[role="tab"]').forEach((t) => {
-                    let e = "true" === t.getAttribute("aria-selected"),
-                        a = {
-                            id: t.getAttribute("data-tabs-target"),
-                            triggerEl: t,
-                            targetEl: document.querySelector(
-                                t.getAttribute("data-tabs-target")
-                            ),
-                        };
-                    s.push(a), e && (i = a.id);
-                }),
-                    new e(s, { defaultTabId: i });
+    function isInDropdown(target) {
+        return !!target.closest(
+            ".dropdown-menu, .dropdown-toggle, .dropup, .dropstart, .dropend, .dropdown"
+        );
+    }
+    function dismissAllDropdowns() {
+        qsa(document, ".dropdown-menu").forEach((m) => {
+            m.classList.remove("block");
+            m.classList.add("hidden");
+        });
+        qsa(document, ".dropdown-toggle").forEach((t) =>
+            t.classList.remove("show")
+        );
+    }
+
+    document.addEventListener("click", (ev) => {
+        const tabBtn = ev.target.closest('[data-tabs-toggle] [role="tab"]');
+        if (!tabBtn) return;
+
+        const tabsRoot = tabBtn.closest("[data-tabs-toggle]");
+        if (!tabsRoot) return;
+
+        const targetSelector = tabBtn.getAttribute("data-tabs-target");
+        const panel = qs(document, targetSelector);
+        if (!panel) return;
+
+        qsa(tabsRoot, '[role="tab"]').forEach((btn) => {
+            btn.setAttribute("aria-selected", "false");
+            btn.classList.remove(
+                "text-blue-600",
+                "dark:text-blue-500",
+                "border-blue-600",
+                "dark:border-blue-500"
+            );
+            btn.classList.add("text-gray-500", "dark:text-gray-400");
+            const sel = btn.getAttribute("data-tabs-target");
+            const p = qs(document, sel);
+            if (p) p.classList.add("hidden");
+        });
+
+        tabBtn.setAttribute("aria-selected", "true");
+        tabBtn.classList.add(
+            "text-blue-600",
+            "dark:text-blue-500",
+            "border-blue-600",
+            "dark:border-blue-500"
+        );
+        tabBtn.classList.remove("text-gray-500", "dark:text-gray-400");
+        panel.classList.remove("hidden");
+    });
+
+    document.addEventListener("click", (ev) => {
+        const trigger = ev.target.closest("[data-accordion-target]");
+        if (!trigger) return;
+
+        const targetSel = trigger.getAttribute("data-accordion-target");
+        const target = qs(document, targetSel);
+        if (!target) return;
+
+        const alwaysOpen = trigger.closest('[data-accordion="open"]');
+
+        const activeClasses = (
+            trigger
+                .closest("[data-active-classes]")
+                ?.getAttribute("data-active-classes") ||
+            "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
+        ).split(" ");
+        const inactiveClasses = (
+            trigger
+                .closest("[data-inactive-classes]")
+                ?.getAttribute("data-inactive-classes") ||
+            "text-gray-500 dark:text-gray-400"
+        ).split(" ");
+
+        const isOpen = trigger.getAttribute("aria-expanded") === "true";
+
+        const container = trigger.closest("[data-accordion]") || document;
+        if (!alwaysOpen) {
+            qsa(container, "[data-accordion-target]").forEach((t) => {
+                if (t === trigger) return;
+                const sel = t.getAttribute("data-accordion-target");
+                const pane = qs(document, sel);
+                if (!pane) return;
+                t.setAttribute("aria-expanded", "false");
+                t.classList.remove(...activeClasses);
+                t.classList.add(...inactiveClasses);
+                pane.classList.add("hidden");
+                const icon = t.querySelector("[data-accordion-icon]");
+                icon && icon.classList.remove("rotate-180");
             });
-        })();
-} catch (s) {}
-instanceMap = new Map();
-class InstanceData {
-    static set(t, e, s) {
-        instanceMap.has(t) || instanceMap.set(t, new Map());
-        let i = instanceMap.get(t);
-        i.set(e, s);
-    }
-    static get(t, e) {
-        return instanceMap.has(t) ? instanceMap.get(t).get(e) : null;
-    }
-    static getAllInstance(t) {
-        return null !== t ? instanceMap.get(t) : null;
-    }
-}
-try {
-    class i {
-        static trigger(t, e, s) {
-            InstanceData.getAllInstance(e).forEach(function (e, i, a) {
-                e.on(t, s);
-            });
         }
-    }
-} catch (a) {}
-class Component {
-    constructor(t, e) {
-        (this.componentName = t),
-            (this.element = e),
-            InstanceData.set(t, e, this);
-    }
-    on(t, e) {}
-    static getInstance(t, e) {
-        return InstanceData.get(t, e);
-    }
-    trigger(t) {
-        EventHandler.trigger(t, this.componentName, this.element);
-    }
-    static childOf(t, e) {
-        for (; (t = t.parentNode) && t !== e; );
-        return !!t;
-    }
-    static getAllInstance() {
-        return instanceMap;
-    }
-    static childOfOrSelf(t, e) {
-        return !!this.childOf(t, e) || t.isEqualNode(e);
-    }
-}
-try {
-    let r = {
-        defaultTabId: null,
-        activeClasses:
-            "text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500",
-        inactiveClasses:
-            "text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300",
-        onShow() {},
-    };
-    class l {
-        constructor(t = [], e = {}) {
-            (this._items = t),
-                (this._activeTab = e ? this.getTab(e.defaultTabId) : null),
-                (this._options = { ...r, ...e }),
-                this._init();
+
+        trigger.setAttribute("aria-expanded", String(!isOpen));
+        if (!isOpen) {
+            trigger.classList.add(...activeClasses);
+            trigger.classList.remove(...inactiveClasses);
+            target.classList.remove("hidden");
+            trigger
+                .querySelector("[data-accordion-icon]")
+                ?.classList.add("rotate-180");
+        } else {
+            trigger.classList.remove(...activeClasses);
+            trigger.classList.add(...inactiveClasses);
+            target.classList.add("hidden");
+            trigger
+                .querySelector("[data-accordion-icon]")
+                ?.classList.remove("rotate-180");
         }
-        _init() {
-            this._items.length &&
-                (this._activeTab || this._setActiveTab(this._items[0]),
-                this.show(this._activeTab.id, !0),
-                this._items.map((t) => {
-                    t.triggerEl.addEventListener("click", () => {
-                        this.show(t.id);
-                    });
-                }));
-        }
-        getActiveTab() {
-            return this._activeTab;
-        }
-        _setActiveTab(t) {
-            this._activeTab = t;
-        }
-        getTab(t) {
-            return this._items.filter((e) => e.id === t)[0];
-        }
-        show(t, e = !1) {
-            let s = this.getTab(t);
-            (s !== this._activeTab || e) &&
-                (this._items.map((t) => {
-                    t !== s &&
-                        (t.triggerEl.classList.remove(
-                            ...this._options.activeClasses.split(" ")
-                        ),
-                        t.triggerEl.classList.add(
-                            ...this._options.inactiveClasses.split(" ")
-                        ),
-                        t.targetEl.classList.add("hidden"),
-                        t.triggerEl.setAttribute("aria-selected", !1));
-                }),
-                s.triggerEl.classList.add(
-                    ...this._options.activeClasses.split(" ")
-                ),
-                s.triggerEl.classList.remove(
-                    ...this._options.inactiveClasses.split(" ")
-                ),
-                s.triggerEl.setAttribute("aria-selected", !0),
-                s.targetEl.classList.remove("hidden"),
-                this._setActiveTab(s),
-                this._options.onShow());
-        }
+    });
+
+    function getModalFromTrigger(el) {
+        const href = el.getAttribute("href");
+        if (!href || !href.includes("#")) return null;
+        const id = href.split("#")[1];
+        return qs(document, "#" + id);
     }
-    (window.Tabs = l),
-        (() => {
-            document.querySelectorAll("[data-tabs-toggle]").forEach((t) => {
-                let e = [],
-                    s = null;
-                t.querySelectorAll('[role="tab"]').forEach((t) => {
-                    let i = "true" === t.getAttribute("aria-selected"),
-                        a = {
-                            id: t.getAttribute("data-tabs-target"),
-                            triggerEl: t,
-                            targetEl: document.querySelector(
-                                t.getAttribute("data-tabs-target")
-                            ),
-                        };
-                    e.push(a), i && (s = a.id);
-                }),
-                    new l(e, { defaultTabId: s });
-            });
-        })();
-} catch (o) {}
-try {
-    let c = {
-        alwaysOpen: !1,
-        activeClasses:
-            "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white",
-        inactiveClasses: "text-gray-500 dark:text-gray-400",
-        onOpen() {},
-        onClose() {},
-    };
-    class n {
-        constructor(t = [], e = {}) {
-            (this._items = t), (this._options = { ...c, ...e }), this._init();
+
+    function showModal(modal) {
+        if (!modal) return;
+        document.body.classList.add("modal-enabled");
+        setTimeout(() => {
+            modal.classList.add("block");
+            modal.classList.remove("hidden");
+        }, 0);
+    }
+
+    function hideModal(modal) {
+        if (!modal) return;
+        setTimeout(() => {
+            modal.classList.remove("block");
+            modal.classList.add("hidden");
+            document.body.classList.remove("modal-enabled");
+        }, 0);
+    }
+
+    document.addEventListener("click", (ev) => {
+        const openBtn = ev.target.closest('[data-modal-toggle="modal"]');
+        if (openBtn) {
+            const modal = getModalFromTrigger(openBtn);
+            showModal(modal);
+            return;
         }
-        _init() {
-            this._items.length &&
-                this._items.map((t) => {
-                    t.active && this.open(t.id),
-                        t.triggerEl.addEventListener("click", () => {
-                            this.toggle(t.id);
-                        });
+
+        const closeBtn = ev.target.closest(".modal .btn-close, .modal .close");
+        if (closeBtn) {
+            const modal = closeBtn.closest(".modal");
+            hideModal(modal);
+            return;
+        }
+
+        const backdrop = ev.target.closest(".modal");
+        if (backdrop && ev.target === backdrop) {
+            const isStatic =
+                backdrop.getAttribute("data-backdrop") === "static";
+            if (!isStatic) hideModal(backdrop);
+            return;
+        }
+    });
+
+    document.addEventListener("click", (ev) => {
+        const toggle = ev.target.closest(".dropdown-toggle");
+        if (toggle) {
+            const parent = toggle.closest(
+                ".dropdown, .dropup, .dropstart, .dropend"
+            );
+            const menu = parent && qs(parent, ".dropdown-menu");
+            if (!menu) return;
+
+            if (
+                window.Popper &&
+                typeof window.Popper.createPopper === "function"
+            ) {
+                window.Popper.createPopper(toggle, menu, {
+                    placement: parent.classList.contains("dropup")
+                        ? "top-start"
+                        : parent.classList.contains("dropstart")
+                        ? "left-start"
+                        : parent.classList.contains("dropend")
+                        ? "right-start"
+                        : "bottom-start",
                 });
-        }
-        getItem(t) {
-            return this._items.filter((e) => e.id === t)[0];
-        }
-        open(t) {
-            let e = this.getItem(t);
-            this._options.alwaysOpen ||
-                this._items.map((t) => {
-                    t !== e &&
-                        (t.triggerEl.classList.remove(
-                            ...this._options.activeClasses.split(" ")
-                        ),
-                        t.triggerEl.classList.add(
-                            ...this._options.inactiveClasses.split(" ")
-                        ),
-                        t.targetEl.classList.add("hidden"),
-                        t.triggerEl.setAttribute("aria-expanded", !1),
-                        (t.active = !1),
-                        t.iconEl && t.iconEl.classList.remove("rotate-180"));
-                }),
-                e.triggerEl.classList.add(
-                    ...this._options.activeClasses.split(" ")
-                ),
-                e.triggerEl.classList.remove(
-                    ...this._options.inactiveClasses.split(" ")
-                ),
-                e.triggerEl.setAttribute("aria-expanded", !0),
-                e.targetEl.classList.remove("hidden"),
-                (e.active = !0),
-                e.iconEl && e.iconEl.classList.add("rotate-180"),
-                this._options.onOpen(e);
-        }
-        toggle(t) {
-            let e = this.getItem(t);
-            e.active ? this.close(t) : this.open(t);
-        }
-        close(t) {
-            let e = this.getItem(t);
-            e.triggerEl.classList.remove(
-                ...this._options.activeClasses.split(" ")
-            ),
-                e.triggerEl.classList.add(
-                    ...this._options.inactiveClasses.split(" ")
-                ),
-                e.targetEl.classList.add("hidden"),
-                e.triggerEl.setAttribute("aria-expanded", !1),
-                (e.active = !1),
-                e.iconEl && e.iconEl.classList.remove("rotate-180"),
-                this._options.onClose(e);
-        }
-    }
-    (window.Accordion = n),
-        (() => {
-            document.querySelectorAll("[data-accordion]").forEach((t) => {
-                let e = t.getAttribute("data-accordion"),
-                    s = t.getAttribute("data-active-classes"),
-                    i = t.getAttribute("data-inactive-classes"),
-                    a = [];
-                t.querySelectorAll("[data-accordion-target]").forEach((t) => {
-                    let e = {
-                        id: t.getAttribute("data-accordion-target"),
-                        triggerEl: t,
-                        targetEl: document.querySelector(
-                            t.getAttribute("data-accordion-target")
-                        ),
-                        iconEl: t.querySelector("[data-accordion-icon]"),
-                        active: "true" === t.getAttribute("aria-expanded"),
-                    };
-                    a.push(e);
-                }),
-                    new n(a, {
-                        alwaysOpen: "open" === e,
-                        activeClasses: s || c.activeClasses,
-                        inactiveClasses: i || c.inactiveClasses,
-                    });
-            });
-        })();
-} catch (d) {}
-try {
-    class h extends Component {
-        event_key = "modal.tw";
-        event_show = `show.${this.event_key}`;
-        constructor(t) {
-            super("modal", t),
-                (this.element = t),
-                (this.modal = document.getElementById(
-                    t.getAttribute("href").split("#")[1]
-                )),
-                (this.modalDialog = this.modal?.querySelector(".modal-dialog")),
-                this.init();
-        }
-        init() {
-            (this._show = !1),
-                this.activateClickListener(),
-                this.activateListener(),
-                (this.isStatic =
-                    "static" === this.modal.getAttribute("data-backdrop"));
-        }
-        toggle() {
-            this._show ? this.hide() : this.show();
-        }
-        show() {
-            if (!this.modal) return;
-            let t = this;
-            document.body.classList.add("modal-enabled"),
-                setTimeout(function () {
-                    t.modal.classList.add("block"), (t._show = !0);
-                }, 150);
-        }
-        hide() {
-            let t = this;
-            (t._show = !1),
-                setTimeout(function () {
-                    t.modal.classList.remove("block");
-                }, 150),
-                setTimeout(function () {
-                    document.body.classList.remove("modal-enabled");
-                }, 150);
-        }
-        activateClickListener() {
-            let t = this;
-            this.element.addEventListener("click", function () {
-                t.show();
-            }),
-                this.modal
-                    .querySelectorAll(".btn-close, .close")
-                    .forEach(function (e) {
-                        e.addEventListener("click", function () {
-                            t.hide();
-                        });
-                    });
-        }
-        activateListener() {
-            let t = this;
-            window.addEventListener("click", function (e) {
-                t._show &&
-                    !t.isStatic &&
-                    e.target.matches(".modal") &&
-                    t.hide();
-            });
-        }
-    }
-    document
-        .querySelectorAll('[data-modal-toggle="modal"]')
-        .forEach(function (t) {
-            new h(t);
-        });
-} catch (g) {}
-try {
-    var u = document.querySelectorAll(".dropdown"),
-        v = document.querySelectorAll(".dropup"),
-        b = document.querySelectorAll(".dropstart"),
-        m = document.querySelectorAll(".dropend"),
-        p = !1,
-        $ = !1;
-    function E(t, e) {
-        Array.from(t).forEach(function (t) {
-            t.querySelectorAll(".dropdown-toggle").forEach(function (s) {
-                s.addEventListener("click", function (i) {
-                    s.classList.toggle("show"),
-                        Popper.createPopper(
-                            s,
-                            t.querySelector(".dropdown-menu"),
-                            { placement: e }
-                        ),
-                        !0 != s.classList.contains("show")
-                            ? (t
-                                  .querySelector(".dropdown-menu")
-                                  .classList.remove("block"),
-                              t
-                                  .querySelector(".dropdown-menu")
-                                  .classList.add("hidden"))
-                            : (f(),
-                              t
-                                  .querySelector(".dropdown-menu")
-                                  .classList.add("block"),
-                              t
-                                  .querySelector(".dropdown-menu")
-                                  .classList.remove("hidden"),
-                              t
-                                  .querySelector(".dropdown-menu")
-                                  .classList.contains("block")
-                                  ? s.classList.add("show")
-                                  : s.classList.remove("show"),
-                              i.stopPropagation()),
-                        ($ = !1);
-                });
-            });
-        });
-    }
-    function f() {
-        Array.from(document.querySelectorAll(".dropdown-menu")).forEach(
-            function (t) {
-                t.classList.remove("block"), t.classList.add("hidden");
             }
-        ),
-            Array.from(document.querySelectorAll(".dropdown-toggle")).forEach(
-                function (t) {
-                    t.classList.remove("show");
-                }
-            ),
-            (p = !1);
+
+            const willShow = !menu.classList.contains("block");
+            dismissAllDropdowns();
+
+            if (willShow) {
+                menu.classList.add("block");
+                menu.classList.remove("hidden");
+                toggle.classList.add("show");
+            }
+            ev.stopPropagation();
+            return;
+        }
+
+        if (!isInDropdown(ev.target)) {
+            dismissAllDropdowns();
+        }
+    });
+
+    function onScrollTopbar() {
+        const topbar = qs(document, "#topbar");
+        if (!topbar) return;
+        if (
+            document.body.scrollTop >= 50 ||
+            document.documentElement.scrollTop >= 50
+        ) {
+            topbar.classList.add("nav-sticky");
+        } else {
+            topbar.classList.remove("nav-sticky");
+        }
     }
-    E(u, "bottom-start"),
-        E(v, "top-start"),
-        E(b, "left-start"),
-        E(m, "right-start"),
-        Array.from(document.querySelectorAll(".dropdown-menu")).forEach(
-            function (t) {
-                t.querySelectorAll("form") &&
-                    Array.from(t.querySelectorAll("form")).forEach(function (
-                        t
-                    ) {
-                        t.addEventListener("click", function (t) {
-                            p || (p = !0);
-                        });
-                    });
-            }
-        ),
-        Array.from(document.querySelectorAll(".dropdown-toggle")).forEach(
-            function (t) {
-                var e = t.parentElement;
-                "outside" == t.getAttribute("data-tw-auto-close")
-                    ? e
-                          .querySelector(".dropdown-menu")
-                          .addEventListener("click", function () {
-                              p || (p = !0);
-                          })
-                    : "inside" == t.getAttribute("data-tw-auto-close") &&
-                      (t.addEventListener("click", function () {
-                          (p = !0), ($ = !0);
-                      }),
-                      e
-                          .querySelector(".dropdown-menu")
-                          .addEventListener("click", function () {
-                              (p = !1), ($ = !1);
-                          }));
-            }
-        ),
-        window.addEventListener("click", function (t) {
-            p || $ || f(), (p = !1);
-        });
-} catch (y) {}
+    window.addEventListener("scroll", onScrollTopbar, { passive: true });
+
+    function runOnPageLoadGlobal() {
+        if (typeof feather !== "undefined") {
+            try {
+                feather.replace();
+            } catch (e) {}
+        }
+    }
+    runOnPageLoadGlobal();
+})();
