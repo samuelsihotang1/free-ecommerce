@@ -1,7 +1,8 @@
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function Header() {
-    const { APP_NAME } = usePage().props;
+    const auth = usePage().props.auth;
+    const APP_NAME = usePage().props.APP_NAME;
     return (
         <>
             <div className="fixed ltr:left-4 ltr:right-4 rtl:right-4 rtl:left-4 print:hidden z-50">
@@ -35,91 +36,111 @@ export default function Header() {
                                             <i className="ti ti-moon text-3xl top-icon" />
                                         </button>
                                     </div>
-                                    <div className="dropdown">
-                                        <button
-                                            type="button"
-                                            className="dropdown-toggle flex items-center rounded-full text-sm
+                                    {auth.user ? (
+                                        <div className="dropdown">
+                                            <button
+                                                type="button"
+                                                className="dropdown-toggle flex items-center rounded-full text-sm
             focus:bg-none focus:ring-0 dark:focus:ring-0 md:mr-0"
-                                            id="user-profile"
-                                            aria-expanded="false"
-                                            data-dropdown-toggle="navUserdata"
-                                        >
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="/assets/images/users/avatar-1.png"
-                                                alt="user photo"
-                                            />
-                                            <span className="ltr:ml-2 rtl:ml-0 rtl:mr-2 hidden text-left xl:block">
-                                                <span className="block font-medium text-slate-600 dark:text-gray-400">
-                                                    Maria Gibson
+                                                id="user-profile"
+                                                aria-expanded="false"
+                                                data-dropdown-toggle="navUserdata"
+                                            >
+                                                <img
+                                                    className="h-8 w-8 rounded-full"
+                                                    src="/assets/images/users/avatar-1.png"
+                                                    alt="user photo"
+                                                />
+                                                <span className="ltr:ml-2 rtl:ml-0 rtl:mr-2 hidden text-left xl:block">
+                                                    <span className="block font-medium text-slate-600 dark:text-gray-400">
+                                                        Maria Gibson
+                                                    </span>
+                                                    <span className="-mt-1 block text-xs text-slate-500 dark:text-gray-500">
+                                                        Admin
+                                                    </span>
                                                 </span>
-                                                <span className="-mt-1 block text-xs text-slate-500 dark:text-gray-500">
-                                                    Admin
-                                                </span>
-                                            </span>
-                                        </button>
-                                        <div
-                                            className="dropdown-menu z-50 my-1 hidden list-none
+                                            </button>
+                                            <div
+                                                className="dropdown-menu z-50 my-1 hidden list-none
                                                 divide-y divide-gray-100 rounded border-slate-700 md:border-white
                                                 text-base shadow dark:divide-gray-600 bg-white dark:bg-slate-800"
-                                            id="navUserdata"
-                                            aria-labelledby="navUserdata"
-                                        >
-                                            <div className="py-3 px-4">
-                                                <span className="block text-sm font-medium text-gray-900 dark:text-white">
-                                                    John Doe
-                                                </span>
-                                                <span
-                                                    className="block truncate text-sm font-normal text-gray-500
+                                                id="navUserdata"
+                                                aria-labelledby="navUserdata"
+                                            >
+                                                <div className="py-3 px-4">
+                                                    <span className="block text-sm font-medium text-gray-900 dark:text-white">
+                                                        John Doe
+                                                    </span>
+                                                    <span
+                                                        className="block truncate text-sm font-normal text-gray-500
                 dark:text-gray-400"
-                                                >
-                                                    johndoe@linky.com
-                                                </span>
+                                                    >
+                                                        johndoe@linky.com
+                                                    </span>
+                                                </div>
+                                                <ul className="py-1">
+                                                    <li>
+                                                        <a
+                                                            href="#"
+                                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
+                dark:text-gray-200 dark:hover:bg-gray-900/20
+                dark:hover:text-white"
+                                                        >
+                                                            Dashboard
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            href="#"
+                                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
+                dark:text-gray-200 dark:hover:bg-gray-900/20
+                dark:hover:text-white"
+                                                        >
+                                                            Settings
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            href="#"
+                                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
+                                                                dark:text-gray-200 dark:hover:bg-gray-900/20
+                                                                dark:hover:text-white"
+                                                        >
+                                                            Earnings
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            href={route(
+                                                                "logout"
+                                                            )}
+                                                            method="post"
+                                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
+                                                                dark:text-gray-200 dark:hover:bg-gray-900/20
+                                                                dark:hover:text-white"
+                                                        >
+                                                            Sign out
+                                                        </Link>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <ul className="py-1">
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                dark:text-gray-200 dark:hover:bg-gray-900/20
-                dark:hover:text-white"
-                                                    >
-                                                        Dashboard
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                dark:text-gray-200 dark:hover:bg-gray-900/20
-                dark:hover:text-white"
-                                                    >
-                                                        Settings
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                dark:text-gray-200 dark:hover:bg-gray-900/20
-                dark:hover:text-white"
-                                                    >
-                                                        Earnings
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                dark:text-gray-200 dark:hover:bg-gray-900/20
-                dark:hover:text-white"
-                                                    >
-                                                        Sign out
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
+                                    ) : (
+                                        <>
+                                            <Link
+                                                href={route("login")}
+                                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            >
+                                                Log in
+                                            </Link>
+                                            <Link
+                                                href={route("register")}
+                                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            >
+                                                Register
+                                            </Link>
+                                        </>
+                                    )}
                                     <button
                                         data-collapse-toggle="mobile-menu"
                                         type="button"
