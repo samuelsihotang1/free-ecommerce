@@ -7,7 +7,7 @@ export default function ProductList() {
     return (
         <>
             <div className="xl:w-full  min-h-[calc(100vh-138px)] relative pb-14 ">
-                <div className="grid xs:grid-cols-2 sm:grid-cols-12 md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-12 md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
                     {items.map((item, index) => (
                         <div
                             key={index}
@@ -22,7 +22,7 @@ export default function ProductList() {
                                 <div className="flex-auto p-4 text-center">
                                     <img
                                         src="/assets/images/users/avatar-4.png"
-                                        className="h-44 inline-block mb-4"
+                                        className="h-auto inline-block mb-4"
                                     />
                                     <span className="text-slate-500 text-sm block font-medium">
                                         <a

@@ -121,7 +121,7 @@ export default function Profile() {
                                 {/*end col*/}
                             </div>
                             {/*end inner-grid*/}
-                            <div className="border-b border-dashed border-gray-200 dark:border-gray-700">
+                            <div className="border-b mb-4 border-dashed border-gray-200 dark:border-gray-700">
                                 <div className="relative">
                                     {/* wrapper scroll horizontal */}
                                     <div
@@ -142,7 +142,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-1-tab"
                                                     data-tabs-target="#Kategori-1"
                                                     type="button"
@@ -159,13 +159,13 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-2-tab"
                                                     data-tabs-target="#Kategori-2"
                                                     type="button"
                                                     role="tab"
                                                     aria-controls="Kategori-2"
-                                                    aria-selected="false"
+                                                    aria-selected="true"
                                                 >
                                                     Kategori-2
                                                 </button>
@@ -176,13 +176,13 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-3-tab"
                                                     data-tabs-target="#Kategori-3"
                                                     type="button"
                                                     role="tab"
                                                     aria-controls="Kategori-3"
-                                                    aria-selected="true"
+                                                    aria-selected="false"
                                                 >
                                                     Kategori-3
                                                 </button>
@@ -193,7 +193,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -210,7 +210,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -227,7 +227,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -244,7 +244,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -261,7 +261,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -278,7 +278,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -295,7 +295,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -312,7 +312,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"
@@ -329,7 +329,7 @@ export default function Profile() {
                                                 role="presentation"
                                             >
                                                 <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                                                     id="Kategori-4-tab"
                                                     data-tabs-target="#Kategori-4"
                                                     type="button"

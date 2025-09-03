@@ -10,9 +10,9 @@ export default function Footer() {
                         <div className="absolute bottom-0 left-0 right-0 block print:hidden">
                             <div>
                                 {/* Footer Start */}
-                                <footer className="footer mt-4 rounded-tr-md rounded-tl-md bg-transparent py-4 text-center font-medium text-slate-600 dark:text-slate-400 md:text-left">
+                                <footer className="footer mt-4 rounded-tr-md rounded-tl-md bg-transparent py-4 font-medium text-slate-600 dark:text-slate-400 md:text-left">
                                     © {APP_NAME}
-                                    <span className="float-right hidden text-slate-600 dark:text-slate-400 md:inline-block">
+                                    <span className="float-right text-slate-600 dark:text-slate-400 md:inline-block">
                                         Dibuat dengan {" "}
                                         <i className="ti ti-heart text-red-500" />
                                         {" "}oleh SamZ
