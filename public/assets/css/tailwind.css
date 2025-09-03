@@ -1027,6 +1027,9 @@ video {
 .-mt-\[74px\]{
   margin-top: -74px !important;
 }
+.-mt-\[88px\]{
+  margin-top: -88px !important;
+}
 .mb-0{
   margin-bottom: 0px !important;
 }
@@ -1465,6 +1468,9 @@ video {
 .w-full{
   width: 100% !important;
 }
+.w-95\%{
+  width: 95% !important;
+}
 .min-w-0{
   min-width: 0px !important;
 }
@@ -1834,6 +1840,9 @@ video {
 }
 .overflow-x-hidden{
   overflow-x: hidden !important;
+}
+.overflow-y-hidden{
+  overflow-y: hidden !important;
 }
 .scroll-smooth{
   scroll-behavior: smooth !important;
@@ -5309,6 +5318,23 @@ input.success {
   overflow-x: scroll;
 }
 
+.scrollbar-thin {
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #9ca3af;
+    border-radius: 9999px;
+  }
+
 .simplebar-hide-scrollbar {
   position: fixed;
   left: 0;
@@ -6368,12 +6394,12 @@ input.success {
 
 [role=tab][aria-selected=true] {
   color: #2563eb !important;
-  border-color: #2563eb !important;
+  /* border-color: #2563eb !important; */
 }
 
 [role=tab][aria-selected=true]:hover {
   color: #2563eb !important;
-  border-color: #2563eb !important;
+  /* border-color: #2563eb !important; */
 }
 
 .custom-checkbox .checked,
@@ -8693,11 +8719,20 @@ input.success {
   .print\:w-full{
     width: 100% !important;
   }
+  .print\:.w-95\%{
+    width: 95% !important;
+  }
   .print\:text-right{
     text-align: right !important;
   }
 }
 @media (min-width: 540px){
+  .xs\:w-full{
+    width: 100% !important;
+  }
+  .xs\:.w-95\%{
+    width: 95% !important;
+  }
   .xs\:col-span-1{
     grid-column: span 1 / span 1 !important;
   }
@@ -8709,6 +8744,24 @@ input.success {
   }
 }
 @media (min-width: 640px){
+  .sm\:col-span-1{
+    grid-column: span 1 / span 1 !important;
+  }
+  .sm\:col-span-12{
+    grid-column: span 12 / span 12 !important;
+  }
+  .sm\:col-span-3{
+    grid-column: span 3 / span 3 !important;
+  }
+  .sm\:col-span-4{
+    grid-column: span 4 / span 4 !important;
+  }
+  .sm\:col-span-6{
+    grid-column: span 6 / span 6 !important;
+  }
+  .sm\:col-span-8{
+    grid-column: span 8 / span 8 !important;
+  }
   .sm\:order-last{
     -webkit-box-ordinal-group: 10000 !important;
         -ms-flex-order: 9999 !important;
@@ -9375,6 +9428,9 @@ input.success {
   }
   .xl\:w-full{
     width: 100% !important;
+  }
+  .xl\:.w-95\%{
+    width: 95% !important;
   }
   .xl\:max-w-6xl{
     max-width: 72rem !important;

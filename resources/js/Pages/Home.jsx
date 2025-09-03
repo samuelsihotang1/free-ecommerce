@@ -164,7 +164,6 @@ export default function Home() {
                         <a href="#">
                             <img
                                 src="/assets/images/users/avatar-3.png"
-                                alt=""
                                 className="rounded-full w-8 h-8"
                             />
                         </a>
@@ -176,12 +175,10 @@ export default function Home() {
                             <a href="index-2.html" className="leading-[60px]">
                                 <img
                                     src="/assets/images/logo-2.png"
-                                    alt=""
                                     className="inline-block dark:hidden h-[15px] ltr:ml-4 rtl:ml-0 rtl:mr-4"
                                 />
                                 <img
                                     src="/assets/images/logo.png"
-                                    alt=""
                                     className=" hidden dark:inline-block h-[15px] ltr:ml-4 rtl:ml-0 rtl:mr-4"
                                 />
                             </a>
@@ -2410,7 +2407,6 @@ export default function Home() {
                                                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
                                                                     <img
                                                                         src="/assets/images/logos/chrome.png"
-                                                                        alt=""
                                                                         className="mr-2 h-5 inline-block"
                                                                     />
                                                                     Chrome
@@ -2436,7 +2432,6 @@ export default function Home() {
                                                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
                                                                     <img
                                                                         src="/assets/images/logos/in-explorer.png"
-                                                                        alt=""
                                                                         className="mr-2 h-5 inline-block"
                                                                     />
                                                                     Explorer
@@ -2462,7 +2457,6 @@ export default function Home() {
                                                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
                                                                     <img
                                                                         src="/assets/images/logos/safari.png"
-                                                                        alt=""
                                                                         className="mr-2 h-5 inline-block"
                                                                     />
                                                                     Safari
@@ -2488,7 +2482,6 @@ export default function Home() {
                                                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
                                                                     <img
                                                                         src="/assets/images/logos/mozilla.png"
-                                                                        alt=""
                                                                         className="mr-2 h-5 inline-block"
                                                                     />
                                                                     Mozilla
@@ -2514,7 +2507,6 @@ export default function Home() {
                                                                 <td className="p-3 text-sm font-medium whitespace-nowrap dark:text-white">
                                                                     <img
                                                                         src="/assets/images/logos/opera.png"
-                                                                        alt=""
                                                                         className="mr-2 h-5 inline-block"
                                                                     />
                                                                     Opera

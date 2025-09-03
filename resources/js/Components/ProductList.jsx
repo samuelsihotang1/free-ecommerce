@@ -1,12 +1,18 @@
 export default function ProductList() {
-    const items = Array.from({ length: 12 }, (_, i) => `Product ${i + 1}`);
+    const items = Array.from(
+        { length: 12 },
+        () => `Product ${Math.floor(Math.random() * 100) + 1}`
+    );
 
     return (
         <>
             <div className="xl:w-full  min-h-[calc(100vh-138px)] relative pb-14 ">
-                <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
+                <div className="grid xs:grid-cols-2 sm:grid-cols-12 md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
                     {items.map((item, index) => (
-                        <div key={index} className="sm:col-span-12  md:col-span-12 lg:col-span-4 xl:col-span-3 ">
+                        <div
+                            key={index}
+                            className="sm:col-span-6  md:col-span-4 lg:col-span-3 xl:col-span-3 "
+                        >
                             <div className="bg-white dark:bg-slate-800 shadow  rounded-md w-full relative overflow-hidden">
                                 {/* <div className="absolute left-0 top-0 h-14 w-14">
                                 <div className="absolute left-[-36px] top-[32px] w-[170px] transform -rotate-45 bg-primary-500 text-center text-sm text-white font-semibold py-1">
@@ -16,7 +22,6 @@ export default function ProductList() {
                                 <div className="flex-auto p-4 text-center">
                                     <img
                                         src="/assets/images/users/avatar-4.png"
-                                        alt
                                         className="h-44 inline-block mb-4"
                                     />
                                     <span className="text-slate-500 text-sm block font-medium">

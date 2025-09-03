@@ -26,6 +26,35 @@ export default function Profile() {
         })();
     }, []);
 
+    // START - Scroll horizontal dragging 
+    const scrollRef = useRef(null);
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+        isDown = true;
+        startX = e.pageX - scrollRef.current.offsetLeft;
+        scrollLeft = scrollRef.current.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+        isDown = false;
+    };
+
+    const handleMouseUp = () => {
+        isDown = false;
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX) * 0.88;
+        scrollRef.current.scrollLeft = scrollLeft - walk;
+    };
+    // END - Scroll horizontal dragging
+
     return (
         <>
             <App>
@@ -33,79 +62,55 @@ export default function Profile() {
                 <div className="ltr:flex flex-1 rtl:flex-row-reverse">
                     <div className="container page-wrapper relative ltr:ml-auto rtl:mr-auto rtl:ml-0 px-4 pt-[54px] duration-300">
                         <div className="pt-4 xl:w-full  min-h-[calc(100vh-138px)] relative ">
-                            <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
+                            <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4">
                                 <div className="sm:col-span-12  md:col-span-12 lg:col-span-12 xl:col-span-12 ">
                                     <div className="bg-white dark:bg-slate-800 shadow  rounded-md w-full relative">
                                         <div className="flex-auto p-0">
                                             <img
                                                 src="/assets/images/widgets/bg-p.png"
-                                                alt
-                                                className="bg-cover bg-center h-48 w-fit rounded-md clip-path-bottom"
+                                                className="bg-cover bg-center h-32 w-full rounded-md"
                                             />
                                         </div>
                                         {/*end card-body*/}
                                         <div className="flex-auto p-4 pt-0">
                                             <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4">
-                                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-6 xl:col-span-6 ">
-                                                    <div className="flex items-center relative -mt-[74px]">
+                                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-12 xl:col-span-12">
+                                                    <div className="flex items-center relative -mt-[88px] flex-wrap">
                                                         <div className="w-36 h-36 relative">
                                                             <img
                                                                 src="/assets/images/users/avatar-4.png"
-                                                                alt
                                                                 className="rounded-full border-[8px] border-white dark:border-slate-800"
                                                             />
-                                                            <span className="absolute cursor-pointer w-7 h-7 bg-green-600 rounded-full bottom-4 right-3 flex items-center justify-center border-2 border-white dark:border-slate-800">
+                                                            {/* <span className="absolute cursor-pointer w-7 h-7 bg-green-600 rounded-full bottom-4 right-3 flex items-center justify-center border-2 border-white dark:border-slate-800">
                                                                 <i className="fas fa-camera text-white text-xs" />
-                                                            </span>
+                                                            </span> */}
                                                         </div>
                                                         <div className="self-end ml-3">
-                                                            <h5 className="text-xl  md:text-[28px] font-semibold sm:text-white md:text-slate-700 dark:text-gray-300 mb-0 md:mb-2">
+                                                            <h5 className="text-3xl font-semibold text-slate-700 dark:text-gray-300 mb-0">
                                                                 Nama Pengguna
                                                             </h5>
-                                                            <p className="block text-xs lg:text-base  font-medium text-slate-500">
+                                                            {/* <p className="block text-xs lg:text-base  font-medium text-slate-500">
                                                                 Deskripsi
                                                                 singkat pengguna
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/*end col*/}
-                                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-6 xl:col-span-6 self-center flex justify-end mt-5">
-                                                    <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12">
-                                                        <div className="col-span-6  md:col-span-3 lg:col-span-3 xl:col-span-3 ">
-                                                            <div className="border-2 border-slate-200/50 dark:border-slate-600/60 inline-flex rounded-full cursor-pointer">
-                                                                <img
-                                                                    src="/assets/images/logos/twitter.png"
-                                                                    alt
-                                                                    className="rounded-full h-9 w-9"
-                                                                />
-                                                            </div>
+                                                            </p> */}
                                                         </div>
                                                         {/*end col*/}
-                                                        <div className="col-span-6  md:col-span-3 lg:col-span-3 xl:col-span-3 ">
-                                                            <div className="border-2 border-slate-200/50 dark:border-slate-600/60 inline-flex rounded-full cursor-pointer ml-0 md:ml-1">
-                                                                <img
-                                                                    src="/assets/images/logos/insta.png"
-                                                                    alt
-                                                                    className="rounded-full h-9 w-9"
-                                                                />
+                                                        {/* <div className="w-full xs:w-auto self-end xs:ml-auto mt-5">
+                                                            <div className="flex items-center space-x-2 justify-end">
+                                                                <div className="border-2 border-slate-200/50 dark:border-slate-600/60 inline-flex rounded-full cursor-pointer">
+                                                                    <img src="/assets/images/logos/twitter.png" className="rounded-full h-9 w-9" />
+                                                                </div>
+                                                                <div className="border-2 border-slate-200/50 dark:border-slate-600/60 inline-flex rounded-full cursor-pointer">
+                                                                    <img src="/assets/images/logos/insta.png" className="rounded-full h-9 w-9" />
+                                                                </div>
+                                                                <div className="border-2 border-slate-200/50 dark:border-slate-600/60 inline-flex rounded-full cursor-pointer">
+                                                                    <img src="/assets/images/logos/facebook.png" className="rounded-full h-9 w-9" />
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        {/*end col*/}
-                                                        <div className="col-span-6  md:col-span-3 lg:col-span-3 xl:col-span-3 ">
-                                                            <div className="border-2 border-slate-200/50 dark:border-slate-600/60 inline-flex rounded-full cursor-pointer ml-0 md:ml-1">
-                                                                <img
-                                                                    src="/assets/images/logos/facebook.png"
-                                                                    alt
-                                                                    className="rounded-full h-9 w-9"
-                                                                />
-                                                            </div>
-                                                        </div>
+                                                        </div> */}
                                                         {/*end col*/}
                                                     </div>
-                                                    {/*end inner-grid*/}
                                                 </div>
-                                                {/*end col*/}
                                             </div>
                                             {/*end inner-grid*/}
                                         </div>
@@ -116,86 +121,233 @@ export default function Profile() {
                                 {/*end col*/}
                             </div>
                             {/*end inner-grid*/}
-                            <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 ">
-                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-12 xl:col-span-12 ">
-                                    <div className="w-full relative overflow-hidden">
-                                        <div className="p-0 xl:p-4">
-                                            <div className="mb-4 border-b border-dashed border-gray-200 dark:border-gray-700 flex flex-wrap justify-center">
-                                                <ul
-                                                    className="flex flex-wrap mb-5 lg:-mb-px"
-                                                    id="myTab"
-                                                    data-tabs-toggle="#myTabContent"
+                            <div className="border-b border-dashed border-gray-200 dark:border-gray-700">
+                                <div className="relative">
+                                    {/* wrapper scroll horizontal */}
+                                    <div
+                                        ref={scrollRef}
+                                        className="overflow-x-auto scrollbar-thin overflow-y-hidden cursor-grab whitespace-nowrap select-none"
+                                        onMouseDown={handleMouseDown}
+                                        onMouseLeave={handleMouseLeave}
+                                        onMouseUp={handleMouseUp}
+                                        onMouseMove={handleMouseMove}
+                                    >
+                                        <ul
+                                            id="myTab"
+                                            data-tabs-toggle="#myTabContent"
+                                            className="flex flex-nowrap lg:-mb-px gap-2 whitespace-nowrap"
+                                        >
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-1-tab"
+                                                    data-tabs-target="#Kategori-1"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-1"
+                                                    aria-selected="false"
                                                 >
-                                                    <li
-                                                        className="mr-2"
-                                                        role="presentation"
-                                                    >
-                                                        <button
-                                                            className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
-                                                            id="Kategori-1-tab"
-                                                            data-tabs-target="#Kategori-1"
-                                                            type="button"
-                                                            role="tab"
-                                                            aria-controls="Kategori-1"
-                                                            aria-selected="false"
-                                                        >
-                                                            Kategori-1
-                                                        </button>
-                                                    </li>
-                                                    <li
-                                                        className="mr-2"
-                                                        role="presentation"
-                                                    >
-                                                        <button
-                                                            className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500"
-                                                            id="Kategori-2-tab"
-                                                            data-tabs-target="#Kategori-2"
-                                                            type="button"
-                                                            role="tab"
-                                                            aria-controls="Kategori-2"
-                                                            aria-selected="false"
-                                                        >
-                                                            Kategori-2
-                                                        </button>
-                                                    </li>
-                                                    <li
-                                                        className="mr-2"
-                                                        role="presentation"
-                                                    >
-                                                        <button
-                                                            className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
-                                                            id="Kategori-3-tab"
-                                                            data-tabs-target="#Kategori-3"
-                                                            type="button"
-                                                            role="tab"
-                                                            aria-controls="Kategori-3"
-                                                            aria-selected="true"
-                                                        >
-                                                            Kategori-3
-                                                        </button>
-                                                    </li>
-                                                    <li role="presentation">
-                                                        <button
-                                                            className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
-                                                            id="Kategori-4-tab"
-                                                            data-tabs-target="#Kategori-4"
-                                                            type="button"
-                                                            role="tab"
-                                                            aria-controls="Kategori-4"
-                                                            aria-selected="false"
-                                                        >
-                                                            Kategori-4
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                                    Kategori-1
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500"
+                                                    id="Kategori-2-tab"
+                                                    data-tabs-target="#Kategori-2"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-2"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-2
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-3-tab"
+                                                    data-tabs-target="#Kategori-3"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-3"
+                                                    aria-selected="true"
+                                                >
+                                                    Kategori-3
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+
+                                            <li
+                                                className="mr-2 flex-none min-w-fit"
+                                                role="presentation"
+                                            >
+                                                <button
+                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 border-gray-100 dark:border-gray-700"
+                                                    id="Kategori-4-tab"
+                                                    data-tabs-target="#Kategori-4"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="Kategori-4"
+                                                    aria-selected="false"
+                                                >
+                                                    Kategori-4
+                                                </button>
+                                            </li>
+                                            {/* …tambahkan kategori lain sesuka hati—tetap akan scroll ke kanan */}
+                                        </ul>
                                     </div>
                                 </div>
-                                {/*end col*/}
                             </div>
+
                             <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
-                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-6 xl:col-span-12 ">
+                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-12 xl:col-span-12 ">
                                     <div className="w-full relative overflow-hidden">
                                         <div className="p-0">
                                             <div id="myTabContent">

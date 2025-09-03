@@ -15,13 +15,13 @@ export default function Header() {
                         <div className="flex-auto">
                             <div className="container flex flex-wrap justify-between items-center mx-auto p-0">
                                 <a
-                                    href="inbox.html"
+                                    href="/"
                                     className="flex items-center"
                                 >
                                     <img
                                         src="/assets/images/logo-sm.png"
                                         className="mr-3 h-6 sm:h-9"
-                                        alt="T-Wind Logo"
+                                        alt={APP_NAME + " Logo"}
                                     />
                                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                                         {APP_NAME}
@@ -129,15 +129,9 @@ export default function Header() {
                                         <>
                                             <Link
                                                 href={route("login")}
-                                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                                className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                                             >
-                                                Log in
-                                            </Link>
-                                            <Link
-                                                href={route("register")}
-                                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                            >
-                                                Register
+                                                Sign in
                                             </Link>
                                         </>
                                     )}
@@ -159,7 +153,7 @@ export default function Header() {
                                         <li>
                                             <a
                                                 href="#"
-                                                className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                                                className="block py-2 pr-4 pl-3 text-white bg-blue-700 md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                                                 aria-current="page"
                                             >
                                                 Beranda
