@@ -1757,6 +1757,9 @@ video {
 .gap-5{
   gap: 1.25rem !important;
 }
+.gap-8{
+  gap: 2rem !important;
+}
 .gap-x-8{
   -webkit-column-gap: 2rem !important;
      -moz-column-gap: 2rem !important;

@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import App from "../Layouts/App";
-import ProductList from "../Components/ProductList";
 import { loadScript } from "@/Utils/loadScript";
 import { Head } from "@inertiajs/react";
+import CategoryTable from "@/Components/CategoryTable";
+import ProductTable from "@/Components/ProductTable";
 
 export default function EditProfile() {
     const loadedRef = useRef(false);
@@ -19,6 +20,10 @@ export default function EditProfile() {
                 await loadScript("/assets/libs/simplebar/simplebar.min.js");
                 await loadScript("/assets/libs/feather-icons/feather.min.js");
                 await loadScript("/assets/js/pages/components.js");
+                await loadScript(
+                    "/assets/libs/simple-datatables/umd/simple-datatables.js"
+                );
+                await loadScript("/assets/js/pages/datatable.init.js");
                 await loadScript("/assets/js/app.js");
             } catch (err) {
                 console.error(err);
@@ -26,39 +31,15 @@ export default function EditProfile() {
         })();
     }, []);
 
-    // START - Scroll horizontal dragging 
-    const scrollRef = useRef(null);
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const handleMouseDown = (e) => {
-        isDown = true;
-        startX = e.pageX - scrollRef.current.offsetLeft;
-        scrollLeft = scrollRef.current.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-        isDown = false;
-    };
-
-    const handleMouseUp = () => {
-        isDown = false;
-    };
-
-    const handleMouseMove = (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - scrollRef.current.offsetLeft;
-        const walk = (x - startX) * 0.88;
-        scrollRef.current.scrollLeft = scrollLeft - walk;
-    };
-    // END - Scroll horizontal dragging
-
     return (
         <>
             <App>
-                <Head title="Edit Profile" />
+                <Head title="Edit Profile">
+                    <link
+                        rel="stylesheet"
+                        href="/assets/libs/simple-datatables/style.css"
+                    />
+                </Head>
                 <div className="ltr:flex flex-1 rtl:flex-row-reverse">
                     <div className="container page-wrapper relative ltr:ml-auto rtl:mr-auto rtl:ml-0 px-4 pt-[54px] duration-300">
                         <div className="pt-4 xl:w-full  min-h-[calc(100vh-138px)] relative ">
@@ -121,280 +102,16 @@ export default function EditProfile() {
                                 {/*end col*/}
                             </div>
                             {/*end inner-grid*/}
-                            <div className="mb-4 border-dashed border-gray-200 dark:border-gray-700">
-                                <div className="relative">
-                                    {/* wrapper scroll horizontal */}
-                                    <div
-                                        ref={scrollRef}
-                                        className="overflow-x-auto scrollbar-thin overflow-y-hidden cursor-grab whitespace-nowrap select-none"
-                                        onMouseDown={handleMouseDown}
-                                        onMouseLeave={handleMouseLeave}
-                                        onMouseUp={handleMouseUp}
-                                        onMouseMove={handleMouseMove}
-                                    >
-                                        <ul
-                                            id="myTab"
-                                            data-tabs-toggle="#myTabContent"
-                                            className="flex flex-nowrap lg:-mb-px gap-2 whitespace-nowrap"
-                                        >
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-1-tab"
-                                                    data-tabs-target="#Kategori-1"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-1"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-1
-                                                </button>
-                                            </li>
 
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-2-tab"
-                                                    data-tabs-target="#Kategori-2"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-2"
-                                                    aria-selected="true"
-                                                >
-                                                    Kategori-2
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-3-tab"
-                                                    data-tabs-target="#Kategori-3"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-3"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-3
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-
-                                            <li
-                                                className="mr-2 flex-none min-w-fit"
-                                                role="presentation"
-                                            >
-                                                <button
-                                                    className="inline-block py-4 px-4 text-md font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                                                    id="Kategori-4-tab"
-                                                    data-tabs-target="#Kategori-4"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="Kategori-4"
-                                                    aria-selected="false"
-                                                >
-                                                    Kategori-4
-                                                </button>
-                                            </li>
-                                            {/* …tambahkan kategori lain sesuka hati—tetap akan scroll ke kanan */}
-                                        </ul>
-                                    </div>
+                            <div className="xl:w-full  min-h-[calc(100vh-138px)] relative mt-8">
+                                <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-8 mb-4">
+                                    <CategoryTable />
+                                    <ProductTable/>
+                                    {/*end col*/}
                                 </div>
+                                {/*end inner-grid*/}
                             </div>
-
-                            <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
-                                <div className="sm:col-span-12  md:col-span-12 lg:col-span-12 xl:col-span-12 ">
-                                    <div className="w-full relative overflow-hidden">
-                                        <div className="p-0">
-                                            <div id="myTabContent">
-                                                <div
-                                                    className="hidden"
-                                                    id="Kategori-1"
-                                                    role="tabpanel"
-                                                    aria-labelledby="Kategori-1-tab"
-                                                >
-                                                    <ProductList />
-                                                </div>
-                                                {/*end tab-pan*/}
-                                                <div
-                                                    className="hidden"
-                                                    id="Kategori-2"
-                                                    role="tabpanel"
-                                                    aria-labelledby="Kategori-2-tab"
-                                                >
-                                                    <ProductList />
-                                                    {/*end grid*/}
-                                                </div>
-                                                {/*end tab-pan*/}
-                                                <div
-                                                    className=""
-                                                    id="Kategori-3"
-                                                    role="tabpanel"
-                                                    aria-labelledby="Kategori-3-tab"
-                                                >
-                                                    <ProductList />
-                                                </div>
-                                                {/*end tab-pan*/}
-                                                <div
-                                                    className="hidden"
-                                                    id="Kategori-4"
-                                                    role="tabpanel"
-                                                    aria-labelledby="Kategori-4-tab"
-                                                >
-                                                    <ProductList />
-                                                    {/*end grid*/}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>{" "}
-                                    {/*end inner-grid*/}
-                                </div>
-                            </div>
-                            {/*end grid*/}
+                            {/*end container*/}
                         </div>
                         {/*end container*/}
                     </div>

@@ -33,7 +33,7 @@ export default function Login({ canResetPassword }) {
                         Let's Get Started {APP_NAME}
                     </h3> */}
                         <p className="text-xs text-slate-400">
-                            Log in to continue to {APP_NAME}.
+                            Masuk untuk melanjutkan ke {APP_NAME}.
                         </p>
                     </div>
                     <form onSubmit={submit} className="p-6">
@@ -52,7 +52,7 @@ export default function Login({ canResetPassword }) {
                                 value={data.email}
                                 autoComplete="username"
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
-                                placeholder="Your Email"
+                                placeholder="Masukkan Email"
                                 required
                                 onChange={(e) =>
                                     setData("email", e.target.value)
@@ -69,7 +69,7 @@ export default function Login({ canResetPassword }) {
                                 value="Password"
                                 className="font-medium text-sm text-slate-600 dark:text-slate-400"
                             >
-                                Your password
+                                Password
                             </label>
                             <input
                                 id="password"
@@ -81,7 +81,7 @@ export default function Login({ canResetPassword }) {
                                     setData("password", e.target.value)
                                 }
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
-                                placeholder="Password"
+                                placeholder="Masukkan Password"
                                 required
                             />
                             <InputError
@@ -94,7 +94,7 @@ export default function Login({ canResetPassword }) {
                                 href={route("password.request")}
                                 className="text-xs font-medium text-primary-500 underline "
                             >
-                                Forgot your password?
+                                Lupa password?
                             </Link>
                         )}
                         <div className="block mt-3">
@@ -114,7 +114,7 @@ export default function Login({ canResetPassword }) {
                                     />
                                     <i className="fas fa-check hidden text-xs text-slate-700 dark:text-slate-200" />
                                 </div>{" "}
-                                Remember me
+                                Ingat saya
                             </label>
                         </div>
                         <div className="mt-6">
@@ -122,17 +122,17 @@ export default function Login({ canResetPassword }) {
                                 type="submit"
                                 className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                             >
-                                Login
+                                Masuk
                             </button>
                         </div>
                     </form>
                     <p className="mb-5 text-sm font-medium text-center text-slate-500">
-                        Don't have an account?{" "}
+                        Belum punya akun?{" "}
                         <a
                             href={route("register")}
                             className="font-medium text-blue-600 hover:underline"
                         >
-                            Sign up
+                            Daftar
                         </a>
                     </p>
                 </div>

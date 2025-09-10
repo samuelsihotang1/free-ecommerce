@@ -34,7 +34,7 @@ export default function Register() {
                             Let's Get Started {APP_NAME}
                         </h3> */}
                         <p className="text-xs text-slate-400">
-                            Register to continue to {APP_NAME}.
+                            Daftar untuk melanjutkan ke {APP_NAME}.
                         </p>
                     </div>
                     <form onSubmit={submit} className="p-6">
@@ -44,7 +44,7 @@ export default function Register() {
                                 value="Name"
                                 className="font-medium text-sm text-slate-600 dark:text-slate-400"
                             >
-                                Name
+                                Nama
                             </label>
                             <input
                                 type="text"
@@ -56,7 +56,7 @@ export default function Register() {
                                     setData("name", e.target.value)
                                 }
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
-                                placeholder="Enter Name"
+                                placeholder="Masukkan nama"
                                 required
                             />
                             <InputError
@@ -79,7 +79,7 @@ export default function Register() {
                                 value={data.email}
                                 autoComplete="username"
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
-                                placeholder="Enter Email"
+                                placeholder="Masukkan Email"
                                 onChange={(e) =>
                                     setData("email", e.target.value)
                                 }
@@ -96,7 +96,7 @@ export default function Register() {
                                 value="Password"
                                 className="font-medium text-sm text-slate-600 dark:text-slate-400"
                             >
-                                Your password
+                                Password
                             </label>
                             <input
                                 id="password"
@@ -108,7 +108,7 @@ export default function Register() {
                                     setData("password", e.target.value)
                                 }
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
-                                placeholder="Enter Password"
+                                placeholder="Masukkan Password"
                                 required
                             />
                             <InputError
@@ -122,7 +122,7 @@ export default function Register() {
                                 value="Confirm Password"
                                 className="font-medium text-sm text-slate-600 dark:text-slate-400"
                             >
-                                Confirm Password
+                                Konfirmasi Password
                             </label>
                             <input
                                 id="password_confirmation"
@@ -137,7 +137,7 @@ export default function Register() {
                                     )
                                 }
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
-                                placeholder="Enter Confirm Password"
+                                placeholder="Masukkan Konfirmasi Password"
                                 required
                             />
                             <InputError
@@ -160,17 +160,17 @@ export default function Register() {
                                 type="submit"
                                 className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                             >
-                                Register
+                                Daftar
                             </button>
                         </div>
                     </form>
                     <p className="mb-5 text-sm font-medium text-center text-slate-500">
-                        Already have an account ?{" "}
+                        Sudah punya akun ?{" "}
                         <a
                             href={route("login")}
                             className="font-medium text-blue-600 hover:underline"
                         >
-                            Log in
+                            Masuk
                         </a>
                     </p>
                 </div>
