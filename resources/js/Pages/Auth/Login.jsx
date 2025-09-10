@@ -33,7 +33,7 @@ export default function Login({ canResetPassword }) {
                         Let's Get Started {APP_NAME}
                     </h3> */}
                         <p className="text-xs text-slate-400">
-                            Sign in to continue to {APP_NAME}.
+                            Log in to continue to {APP_NAME}.
                         </p>
                     </div>
                     <form onSubmit={submit} className="p-6">
@@ -51,7 +51,6 @@ export default function Login({ canResetPassword }) {
                                 name="email"
                                 value={data.email}
                                 autoComplete="username"
-                                isFocused={true}
                                 className="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
                                 placeholder="Your Email"
                                 required

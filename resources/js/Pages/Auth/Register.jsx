@@ -1,8 +1,4 @@
 import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 
 export default function Register() {
@@ -38,7 +34,7 @@ export default function Register() {
                             Let's Get Started {APP_NAME}
                         </h3> */}
                         <p className="text-xs text-slate-400">
-                            Sign in to continue to {APP_NAME}.
+                            Register to continue to {APP_NAME}.
                         </p>
                     </div>
                     <form onSubmit={submit} className="p-6">
@@ -56,7 +52,6 @@ export default function Register() {
                                 name="name"
                                 value={data.name}
                                 autoComplete="name"
-                                isFocused={true}
                                 onChange={(e) =>
                                     setData("name", e.target.value)
                                 }
