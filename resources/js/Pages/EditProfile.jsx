@@ -4,7 +4,7 @@ import ProductList from "../Components/ProductList";
 import { loadScript } from "@/Utils/loadScript";
 import { Head } from "@inertiajs/react";
 
-export default function Profile() {
+export default function EditProfile() {
     const loadedRef = useRef(false);
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function Profile() {
     return (
         <>
             <App>
-                <Head title="Profile" />
+                <Head title="Edit Profile" />
                 <div className="ltr:flex flex-1 rtl:flex-row-reverse">
                     <div className="container page-wrapper relative ltr:ml-auto rtl:mr-auto rtl:ml-0 px-4 pt-[54px] duration-300">
                         <div className="pt-4 xl:w-full  min-h-[calc(100vh-138px)] relative ">

@@ -14,10 +14,7 @@ export default function Header() {
                     <div className="mx-0 flex max-w-full flex-wrap items-center lg:mx-auto">
                         <div className="flex-auto">
                             <div className="container flex flex-wrap justify-between items-center mx-auto p-0">
-                                <a
-                                    href="/"
-                                    className="flex items-center"
-                                >
+                                <a href="/" className="flex items-center">
                                     <img
                                         src="/assets/images/logo-sm.png"
                                         className="mr-3 h-6 sm:h-9"
@@ -53,11 +50,11 @@ export default function Header() {
                                                 />
                                                 <span className="ltr:ml-2 rtl:ml-0 rtl:mr-2 hidden text-left xl:block">
                                                     <span className="block font-medium text-slate-600 dark:text-gray-400">
-                                                        Maria Gibson
+                                                        {auth.user.name}
                                                     </span>
-                                                    <span className="-mt-1 block text-xs text-slate-500 dark:text-gray-500">
-                                                        Admin
-                                                    </span>
+                                                    {/* <span className="-mt-1 block text-xs text-slate-500 dark:text-gray-500">
+                                                        {auth.user.email}
+                                                    </span> */}
                                                 </span>
                                             </button>
                                             <div
@@ -69,44 +66,26 @@ export default function Header() {
                                             >
                                                 <div className="py-3 px-4">
                                                     <span className="block text-sm font-medium text-gray-900 dark:text-white">
-                                                        John Doe
+                                                        {auth.user.name}
                                                     </span>
                                                     <span
                                                         className="block truncate text-sm font-normal text-gray-500
                 dark:text-gray-400"
                                                     >
-                                                        johndoe@linky.com
+                                                        {auth.user.email}
                                                     </span>
                                                 </div>
                                                 <ul className="py-1">
                                                     <li>
                                                         <a
-                                                            href="#"
+                                                            href={route(
+                                                                "editprofile"
+                                                            )}
                                                             className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
                 dark:text-gray-200 dark:hover:bg-gray-900/20
                 dark:hover:text-white"
                                                         >
-                                                            Dashboard
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="#"
-                                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                dark:text-gray-200 dark:hover:bg-gray-900/20
-                dark:hover:text-white"
-                                                        >
-                                                            Settings
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="#"
-                                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                                                                dark:text-gray-200 dark:hover:bg-gray-900/20
-                                                                dark:hover:text-white"
-                                                        >
-                                                            Earnings
+                                                            Edit Profile
                                                         </a>
                                                     </li>
                                                     <li>
@@ -152,7 +131,7 @@ export default function Header() {
                                     <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-large">
                                         <li>
                                             <a
-                                                href="#"
+                                                href="/"
                                                 className="block py-2 pr-4 pl-3 text-white bg-blue-700 md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                                                 aria-current="page"
                                             >
